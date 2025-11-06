@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Banner del proyecto - Cinema Subscription Pricing Optimization">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B1220"/>
+      <stop offset="100%" stop-color="#0E1A2C"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6C2CF2"/>
+      <stop offset="100%" stop-color="#19C37D"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1200" height="360" fill="url(#bg)"/>
+  <!-- Light grid -->
+  <g opacity="0.12">
+    <path d="M50 0V360" stroke="#93C5FD"/>
+    <path d="M150 0V360" stroke="#93C5FD"/>
+    <path d="M250 0V360" stroke="#93C5FD"/>
+    <path d="M350 0V360" stroke="#93C5FD"/>
+    <path d="M450 0V360" stroke="#93C5FD"/>
+    <path d="M550 0V360" stroke="#93C5FD"/>
+    <path d="M650 0V360" stroke="#93C5FD"/>
+    <path d="M750 0V360" stroke="#93C5FD"/>
+    <path d="M850 0V360" stroke="#93C5FD"/>
+    <path d="M950 0V360" stroke="#93C5FD"/>
+    <path d="M1050 0V360" stroke="#93C5FD"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="60" y="140" font-family="Inter, Segoe UI, Roboto, Arial" font-size="44" font-weight="800" fill="#E5E7EB">
+    Optimización de Precios de Suscripción de Cine
+  </text>
+  <text x="60" y="190" font-family="Inter, Segoe UI, Roboto, Arial" font-size="26" font-weight="600" fill="#A5B4FC">
+    Proyecto end-to-end de Data Science — Autor: CMSR92
+  </text>
+  <rect x="60" y="210" width="520" height="8" rx="4" fill="url(#accent)"/>
+
+  <!-- Icon cluster -->
+  <g transform="translate(920,90)">
+    <circle cx="60" cy="60" r="60" fill="#0F172A" stroke="#334155" stroke-width="2"/>
+    <path d="M40 45 L85 68 L40 90 Z" fill="#19C37D"/>
+    <circle cx="160" cy="60" r="60" fill="#0F172A" stroke="#334155" stroke-width="2"/>
+    <rect x="120" y="35" width="80" height="50" rx="6" fill="#6C2CF2"/>
+  </g>
+</svg>

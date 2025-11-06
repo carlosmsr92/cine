@@ -1,0 +1,80 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-*
+.spyderproject
+.spyproject
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+pip-log.txt
+
+# Datos sensibles (si los hay)
+# data/raw/*.csv
+# Descomentar si quieres ignorar datos grandes
+
+# Modelos grandes (ya fueron eliminados)
+models/
+*.pkl
+*.joblib
+*.h5
+*.hdf5
+
+# Temporales
+*.tmp
+*.bak
+*.old
+*.orig
+
+# Reports y exports (ya eliminados)
+presentations/
+reports/notebooks_html/
+reports/executive_summary.md
+reports/technical_report.md
+
+# Archivos de desarrollo
+app_v2.py
+app_backup.py
+test_*.py
+
+# Config local de Streamlit (mantener en repo)
+# .streamlit/

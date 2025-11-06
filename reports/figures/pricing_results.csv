@@ -1,0 +1,4 @@
+price,subscribers,revenue,contribution_margin,break_even_subs,is_profitable
+120,485,58200,19400,625.0,False
+180,350,63000,35000,250.0,True
+240,180,43200,28800,156.25,True

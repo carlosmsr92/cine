@@ -1,0 +1,7 @@
+[logger]
+level = "error"
+messageFormat = "%(asctime)s %(message)s"
+
+# Opcional: usar siempre el tema oscuro o respetar el del navegador
+# [theme]
+# base = "dark"

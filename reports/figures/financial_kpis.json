@@ -1,0 +1,9 @@
+{
+  "price": 180,
+  "subscribers": 350,
+  "revenue": 63000,
+  "contribution_margin": 35000,
+  "break_even_subs": 250.0,
+  "roi_percent": 40.0,
+  "payback_months": 8.571428571428571
+}

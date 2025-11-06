@@ -1,0 +1,6 @@
+:root{--accent:#19C37D;--purple:#6C2CF2;--bg:#0E1A2C;--fg:#E5E7EB}
+body{background:#ffffff}
+.logo svg{max-width:320px; height:auto;}
+.block-container{padding-top:1rem}
+.css-1kyxreq{padding-top:1rem}
+.css-18ni7ap{border-top:3px solid var(--accent)}
