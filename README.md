@@ -131,7 +131,6 @@ Este proyecto es de código abierto para fines educativos.
 ## 📧 Contacto
 
 - **Desarrollador**: CMSR92
-- **Email**: carlos@example.com
 - **LinkedIn**: [linkedin.com/in/cmsr92](https://linkedin.com/in/cmsr92)
 - **Portfolio**: [cmsr92.github.io](https://carlosmsr92.github.io/cmsr92/)
 
