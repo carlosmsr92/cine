@@ -1,10 +1,10 @@
-# 🎬 Cinema Subscription Optimization
+# 🎬 Optimizar suscripciones de cine
 
 Dashboard interactivo profesional para análisis y optimización de estrategia de suscripción de cines utilizando Data Science, Machine Learning y Business Intelligence.
 
-## 🌐 Demo en Vivo
+## 🌐 Acceso al dashboard
 
-🔗 [Ver Dashboard en Streamlit](https://cinema-subscription-optimization.streamlit.app)
+🔗 [Ver Dashboard en Streamlit](https://proyecto-cine.streamlit.app/)
 
 ## 📊 Descripción
 
@@ -80,83 +80,6 @@ cinema-subscription-optimization/
 ├── requirements.txt             # Dependencias del proyecto completo
 └── README.md
 ```
-
-## 🚀 Instalación Local
-
-### 1. Clonar el repositorio
-```bash
-git clone https://github.com/TU_USUARIO/cinema-subscription-optimization.git
-cd cinema-subscription-optimization
-```
-
-### 2. Crear entorno virtual
-```bash
-python -m venv venv
-
-# Windows
-venv\Scripts\activate
-
-# Linux/Mac
-source venv/bin/activate
-```
-
-### 3. Instalar dependencias
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Ejecutar dashboard
-```bash
-streamlit run dashboard/app.py
-```
-
-El dashboard se abrirá en `http://localhost:8501`
-
-## 🌐 Despliegue en Streamlit Cloud
-
-### Paso 1: Preparar repositorio GitHub
-```bash
-cd "C:\Users\Carlos\OneDrive\Desktop\Proyecto Cine\cinema-subscription-optimization"
-git init
-git add .
-git commit -m "Initial commit: Cinema Subscription Optimization Dashboard"
-git branch -M main
-git remote add origin https://github.com/TU_USUARIO/cinema-subscription-optimization.git
-git push -u origin main
-```
-
-### Paso 2: Configurar Streamlit Cloud
-1. Ve a [share.streamlit.io](https://share.streamlit.io)
-2. Conecta tu cuenta GitHub
-3. Click en "New app"
-4. Configuración:
-   - **Repository**: `TU_USUARIO/cinema-subscription-optimization`
-   - **Branch**: `main`
-   - **Main file path**: `dashboard/app.py`
-   - **App URL**: `cinema-subscription-optimization` (o el que prefieras)
-5. Click "Deploy"
-
-### Paso 3: Configuración avanzada (opcional)
-Si necesitas ajustes, crea `.streamlit/config.toml`:
-```toml
-[theme]
-primaryColor = "#0CA5BE"
-backgroundColor = "#FFFFFF"
-secondaryBackgroundColor = "#F0F2F6"
-textColor = "#262730"
-font = "sans serif"
-
-[server]
-headless = true
-port = 8501
-enableCORS = false
-```
-
-Tu dashboard estará disponible en:
-```
-https://cinema-subscription-optimization.streamlit.app
-```
-
 ## 📊 Datos
 
 ### Dataset
@@ -188,25 +111,7 @@ https://cinema-subscription-optimization.streamlit.app
 - **ROI**: XX% en 12 meses
 - **VAN**: $XXX,XXX
 - **Payback period**: X meses
-
-## 🔧 Configuración
-
-### Variables de entorno (opcional)
-Si necesitas configurar claves API o secrets:
-
-1. Crea `.streamlit/secrets.toml` (local)
-2. En Streamlit Cloud: Settings → Secrets
-```toml
-# Ejemplo
-[api_keys]
-openai = "sk-..."
-```
-
-### Personalización
-- **Colores**: Edita `dashboard/assets/styles.css`
-- **Tema Streamlit**: Modifica `.streamlit/config.toml`
-- **Datos**: Reemplaza `data/raw/movie_theatre_sales.csv`
-
+  
 ## 📈 Métricas del Proyecto
 
 - **Líneas de código**: ~1,500+
@@ -215,44 +120,19 @@ openai = "sk-..."
 - **Modelos ML**: Clasificación + Regresión
 - **Tiempo de desarrollo**: 2 semanas
 
-## 🐛 Troubleshooting
-
-### Error: "No module named 'streamlit'"
-```bash
-pip install -r requirements.txt
-```
-
-### Error: "File not found"
-Asegúrate de ejecutar desde la raíz del proyecto:
-```bash
-streamlit run dashboard/app.py
-```
-
-### Dashboard lento
-- Reduce el número de registros en `data/raw/`
-- Usa `@st.cache_data` para funciones pesadas
-
 ## 🤝 Contribuciones
-
-Este es un proyecto educativo/portfolio. Si encuentras bugs o mejoras:
-1. Fork el repositorio
-2. Crea una rama (`git checkout -b feature/mejora`)
-3. Commit cambios (`git commit -m 'Añadir mejora'`)
-4. Push a la rama (`git push origin feature/mejora`)
-5. Abre un Pull Request
 
 ## 📄 Licencia
 
-© 2025 Carlos Muñoz (CMSR92). Todos los derechos reservados.
+© 2025 CMSR92. Todos los derechos reservados.
 
 Este proyecto es de código abierto para fines educativos.
 
 ## 📧 Contacto
 
-- **Desarrollador**: Carlos Muñoz (CMSR92)
-- **Email**: carlos@example.com
+- **Desarrollador**: CMSR92
 - **LinkedIn**: [linkedin.com/in/cmsr92](https://linkedin.com/in/cmsr92)
-- **Portfolio**: [cmsr92.github.io](https://cmsr92.github.io)
+- **Portfolio**: [cmsr92.github.io](https://carlosmsr92.github.io/cmsr92/)
 
 ## 🙏 Agradecimientos
 
