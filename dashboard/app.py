@@ -27,19 +27,7 @@ import sys
 
 # Silenciar warnings
 warnings.filterwarnings("ignore")
-hide_streamlit_style = """
-    <style>
-    #MainMenu {visibility: hidden;}
-    .viewerBadge_container__1QSob,
-    .styles_viewerBadge__1yB5_,
-    .viewerBadge_link__1S137,
-    .viewerBadge_text__1JaDK,
-    #GithubIcon {display: none;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    </style>
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 # Setup paths
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(ROOT))

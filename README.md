@@ -4,7 +4,7 @@ Dashboard interactivo profesional para análisis y optimización de estrategia d
 
 ## 🌐 Acceso al dashboard
 
-🔗 [Ver Dashboard en Streamlit](https://proyecto-cine.streamlit.app/)
+🔗 [Ver Dashboard](https://proyecto-cine.streamlit.app/)
 
 ## 📊 Descripción
 
