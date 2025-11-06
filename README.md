@@ -1,4 +1,4 @@
-# 🎬 Optimizar suscriciones de cine
+# 🎬 Optimizar suscripciones de cine
 
 Dashboard interactivo profesional para análisis y optimización de estrategia de suscripción de cines utilizando Data Science, Machine Learning y Business Intelligence.
 
