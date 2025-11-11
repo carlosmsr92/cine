@@ -301,30 +301,30 @@ if kpis:
     
     with col1:
         st.markdown('<div class="metric-card">', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-label">Precio Recomendado</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="metric-label">Precio Óptimo de Suscripción</div>', unsafe_allow_html=True)
         st.markdown(f'<div class="metric-value">${kpis.get("price", 180)}</div>', unsafe_allow_html=True)
         st.markdown(f'<div class="metric-label">por año</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
     
     with col2:
         st.markdown('<div class="metric-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-label">Punto de Equilibrio</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="metric-label">Suscriptores para Punto de Equilibrio</div>', unsafe_allow_html=True)
         st.markdown(f'<div class="metric-value">{int(kpis.get("break_even_subs", 0))}</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-label">suscriptores</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="metric-label">requeridos</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
     
     with col3:
         st.markdown('<div class="metric-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-label">ROI Estimado</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="metric-label">Retorno de Inversión (ROI)</div>', unsafe_allow_html=True)
         st.markdown(f'<div class="metric-value">{kpis.get("roi_percent", 0):.0f}%</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-label">primer año</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="metric-label">proyectado año 1</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
     
     with col4:
         st.markdown('<div class="metric-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-label">Período de Recuperación</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="metric-label">Tiempo de Recuperación de la Inversión</div>', unsafe_allow_html=True)
         st.markdown(f'<div class="metric-value">{kpis.get("payback_months", 0):.1f}</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-label">meses</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="metric-label">meses estimados</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 else:
     st.info("⚙️ Ejecuta el pipeline para generar KPIs financieros")
@@ -335,30 +335,32 @@ st.markdown("---")
 col_left, col_right = st.columns(2)
 
 with col_left:
-    st.markdown("### 🎯 El Desafío")
+    st.markdown("### 🎯 Diagnóstico de la Situación Actual")
     st.markdown("""
     <div class="warning-box">
-    <h4>📉 Caída en Asistencia</h4>
+    <h4>📉 Retos Estratégicos del Cine</h4>
     <ul>
-        <li><strong>15% menos visitantes</strong> en el último año</li>
-        <li>Competencia directa del streaming (Netflix, Disney+, etc.)</li>
-        <li>Ingresos variables e impredecibles</li>
-        <li>Dificultad para fidelizar clientes</li>
+        <li><strong>Descenso del 15% en la asistencia anual</strong> por cambios en hábitos de consumo</li>
+        <li>Competencia intensificada por plataformas de streaming líderes</li>
+        <li>Volatilidad en ingresos y dificultad para proyectar resultados</li>
+        <li>Falta de mecanismos efectivos de fidelización y retención</li>
     </ul>
+    <p>La industria enfrenta la necesidad de reinventar su propuesta de valor para sostener el crecimiento y la rentabilidad.</p>
     </div>
     """, unsafe_allow_html=True)
 
 with col_right:
-    st.markdown("### 💡 La Solución")
+    st.markdown("### 💡 Estrategia Recomendada")
     st.markdown("""
     <div class="success-box">
-    <h4>🎬 Suscripción Anual Optimizada</h4>
+    <h4>🎬 Programa de Suscripción Anual</h4>
     <ul>
-        <li><strong>$180/año</strong> ($15/mes) — precio competitivo</li>
-        <li>Películas ilimitadas + beneficios exclusivos</li>
-        <li>Ingresos recurrentes y predecibles</li>
-        <li>Fidelización del segmento de alto valor</li>
+        <li><strong>$180/año</strong> ($15/mes): posicionamiento competitivo y accesible</li>
+        <li>Acceso ilimitado a películas y beneficios exclusivos para suscriptores</li>
+        <li>Transformación de ingresos variables en flujos recurrentes y predecibles</li>
+        <li>Fidelización de clientes de alto valor mediante experiencias diferenciadas</li>
     </ul>
+    <p>La suscripción permite construir una base sólida de clientes, optimizar la rentabilidad y fortalecer la resiliencia ante cambios de mercado.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -1350,27 +1352,6 @@ with tabs[4]:
                 except Exception as e:
                     st.error(f'❌ Error: {e}')
     
-    st.markdown("---")
-    st.markdown("### 📄 Generación de Reportes")
-    
-    if st.button('📑 Generar Presentación Ejecutiva (PPTX)', use_container_width=True):
-        with st.spinner('Generando presentación...'):
-            try:
-                py = str(VENV_PY) if VENV_PY.exists() else 'python'
-                subprocess.check_call([py, str(ROOT / 'presentations' / 'generate_presentation.py')])
-                st.success('✅ Presentación generada')
-                
-                pptx_path = ROOT / 'presentations' / 'cinema_subscription_strategy.pptx'
-                if pptx_path.exists():
-                    with open(pptx_path, 'rb') as f:
-                        st.download_button(
-                            label='📥 Descargar PPTX',
-                            data=f,
-                            file_name='cinema_subscription_strategy.pptx',
-                            mime='application/vnd.openxmlformats-officedocument.presentationml.presentation'
-                        )
-            except Exception as e:
-                st.error(f'❌ Error: {e}')
     
     st.markdown("---")
     st.markdown("### 📊 Estado de Datos")
