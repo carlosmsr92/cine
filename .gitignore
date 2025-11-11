@@ -66,7 +66,6 @@ models/
 *.orig
 
 # Reports y exports (ya eliminados)
-presentations/
 reports/notebooks_html/
 reports/executive_summary.md
 reports/technical_report.md
