@@ -4,28 +4,16 @@ Dashboard interactivo profesional para análisis y optimización de estrategia d
 
 ## 🌐 Acceso al dashboard
 
-🔗 [Ver Dashboard](https://proyecto-cine.streamlit.app/)
-
-## 📊 Descripción
 
 Proyecto completo de análisis de datos para optimizar la estrategia de suscripción de un cine mediante:
 
-- **Análisis Exploratorio de Datos (EDA)**: Visualización y comprensión de patrones
-- **Segmentación de Clientes**: K-Means + PCA para identificar perfiles de clientes
-- **Modelado Predictivo**: Predicción de conversión y retención
 - **Optimización de Precios**: Estrategia de pricing basada en datos
-- **Proyecciones Financieras**: ROI, VAN, TIR y simulaciones
 
 ## ✨ Características del Dashboard
 
 - 📈 **4 Tabs Interactivos**: Resumen Ejecutivo, Análisis de Datos, Segmentación, Proyecciones
 - 🎨 **Tema Adaptativo**: Modo claro/oscuro automático
 - 📱 **Responsive Design**: Optimizado para desktop y móvil
-- ⚡ **Visualizaciones Interactivas**: Plotly para gráficos dinámicos
-- 🎯 **Insights Automáticos**: Cajas de insight con recomendaciones
-- 💡 **Tooltips Informativos**: Información contextual en todos los gráficos
-
-## 🛠️ Stack Tecnológico
 
 ### Data Science & ML
 - Python 3.11+
@@ -33,19 +21,12 @@ Proyecto completo de análisis de datos para optimizar la estrategia de suscripc
 - Scikit-learn (Machine Learning, PCA, K-Means)
 - Plotly (visualizaciones interactivas)
 
-### Dashboard
-- Streamlit 1.28+ (framework web)
-- HTML/CSS custom (estilos profesionales)
 
 ### Notebooks
 - Jupyter (análisis exploratorio)
 - 6 notebooks completos (01-06)
 
-## 📦 Estructura del Proyecto
-
-```
 cinema-subscription-optimization/
-├── dashboard/
 │   ├── app.py                    # 🚀 Aplicación principal Streamlit
 │   ├── requirements.txt          # Dependencias del dashboard
 │   └── assets/
@@ -53,7 +34,6 @@ cinema-subscription-optimization/
 ├── data/
 │   ├── raw/
 │   │   └── movie_theatre_sales.csv    # Datos originales
-│   └── processed/
 │       ├── cleaned_data.csv           # Datos limpios
 │       ├── customer_segments.csv      # Segmentos de clientes
 │       └── model_features.csv         # Features para modelos
