@@ -1,125 +1,75 @@
-# 🎬 Optimizar suscripciones de cine
+# 🎬 Estrategia de suscripción para un cine
 
-Dashboard interactivo profesional para análisis y optimización de estrategia de suscripción de cines utilizando Data Science, Machine Learning y Business Intelligence.
+Dashboard interactivo en Streamlit que analiza las ventas de un cine y evalúa un programa de suscripción anual:
+comportamiento de clientes, segmentación con K-Means, escenarios de precio y proyección financiera.
 
-## 🌐 Acceso al dashboard
+🔗 **Dashboard:** [proyecto-cine.streamlit.app](https://proyecto-cine.streamlit.app/)
 
+## Qué incluye
 
-Proyecto completo de análisis de datos para optimizar la estrategia de suscripción de un cine mediante:
+- **Análisis de negocio:** transacciones, precio medio del ticket, tamaño de grupo y tasa de recompra.
+- **Segmentación de clientes:** K-Means con 4 segmentos y visualización en 2D con PCA.
+- **Optimización de precios:** simulador de escenarios con punto de equilibrio y margen de contribución.
+- **Proyecciones financieras:** ROI y plazo de recuperación de la inversión del escenario elegido.
+- **Tema claro y oscuro** según la preferencia del navegador.
 
-- **Optimización de Precios**: Estrategia de pricing basada en datos
+## Resultados
 
-## ✨ Características del Dashboard
+Los resultados de precio salen de un **escenario simulado**: la curva de adopción (cuántos suscriptores habría a cada
+precio), los costes fijos (25.000 $) y el coste variable por suscriptor (80 $) son supuestos de partida, no datos reales.
 
-- 📈 **4 Tabs Interactivos**: Resumen Ejecutivo, Análisis de Datos, Segmentación, Proyecciones
-- 🎨 **Tema Adaptativo**: Modo claro/oscuro automático
-- 📱 **Responsive Design**: Optimizado para desktop y móvil
+| Precio anual | Suscriptores (supuesto) | Ingresos | Margen de contribución | Punto de equilibrio |
+|---:|---:|---:|---:|---:|
+| 120 $ | 485 | 58.200 $ | 19.400 $ | 625 suscriptores (no rentable) |
+| 150 $ | 420 | 63.000 $ | 29.400 $ | 357 suscriptores |
+| **180 $** | **350** | **63.000 $** | **35.000 $** | **250 suscriptores** |
+| 210 $ | 260 | 54.600 $ | 33.800 $ | 192 suscriptores |
+| 240 $ | 180 | 43.200 $ | 28.800 $ | 156 suscriptores |
 
-### Data Science & ML
-- Python 3.11+
-- Pandas, NumPy (análisis de datos)
-- Scikit-learn (Machine Learning, PCA, K-Means)
-- Plotly (visualizaciones interactivas)
+- **Precio recomendado:** 180 $ al año (15 $ al mes), el de mayor margen de contribución.
+- **Punto de equilibrio:** 250 suscriptores.
+- **ROI del primer año:** 40 %, con recuperación de la inversión en unos 30 meses.
 
+## Datos
 
-### Notebooks
-- Jupyter (análisis exploratorio)
-- 6 notebooks completos (01-06)
+- **Fuente:** dataset ficticio de ventas de un cine, para demostración.
+- **Tamaño:** 1.440 registros en bruto; 745 transacciones tras la limpieza.
+- **Variables:** edad, género de la película, tipo de asiento, número de personas, precio del ticket y recompra.
 
-cinema-subscription-optimization/
-│   ├── app.py                    # 🚀 Aplicación principal Streamlit
-│   ├── requirements.txt          # Dependencias del dashboard
-│   └── assets/
-│       └── styles.css            # Estilos personalizados
-├── data/
-│   ├── raw/
-│   │   └── movie_theatre_sales.csv    # Datos originales
-│       ├── cleaned_data.csv           # Datos limpios
-│       ├── customer_segments.csv      # Segmentos de clientes
-│       └── model_features.csv         # Features para modelos
-├── src/
-│   ├── data_processing.py        # Procesamiento de datos
-│   ├── feature_engineering.py    # Creación de features
-│   ├── modeling.py               # Modelos ML
-│   ├── pricing_optimization.py   # Optimización de precios
-│   └── visualization.py          # Funciones de visualización
-├── notebooks/
-│   ├── 01_exploratory_data_analysis.ipynb
-│   ├── 02_data_cleaning_preparation.ipynb
-│   ├── 03_customer_segmentation.ipynb
-│   ├── 04_predictive_modeling.ipynb
-│   ├── 05_pricing_optimization.ipynb
-│   └── 06_financial_projections.ipynb
-├── reports/
-│   └── figures/
-│       ├── financial_kpis.json
-│       ├── model_metrics.json
-│       └── pricing_results.csv
-├── .streamlit/
-│   └── config.toml              # Configuración Streamlit
-├── requirements.txt             # Dependencias del proyecto completo
-└── README.md
+## Estructura
+
 ```
-## 📊 Datos
+cine/
+├── dashboard/
+│   ├── app.py                 # Aplicación Streamlit
+│   ├── requirements.txt       # Dependencias del dashboard
+│   └── assets/styles.css      # Estilos
+├── data/
+│   ├── raw/                   # Datos originales
+│   └── processed/             # Datos limpios, segmentos y features
+├── notebooks/                 # Exploración, limpieza, segmentación, modelado, precios y proyecciones
+├── src/                       # Procesamiento, features, modelos, precios y visualización
+├── presentations/             # Exportación de figuras y ejecución de notebooks
+├── reports/figures/           # Figuras, KPIs y resultados de precios
+└── requirements.txt           # Dependencias del proyecto completo
+```
 
-### Dataset
-- **Fuente**: Ventas de cine (ficticio para demostración)
-- **Registros**: ~1000 transacciones
-- **Features**: Edad, género de película, tamaño de grupo, precio, etc.
+## Ejecutar en local
 
-### Variables Clave
-- `Customer_Age`: Edad del cliente
-- `Movie_Genre`: Género de película visto
-- `Group_Size`: Tamaño del grupo
-- `Ticket_Price`: Precio del ticket
-- `Total_Spend`: Gasto total en concesiones
-- `Loyalty_Member`: Miembro del programa de lealtad
+```bash
+pip install -r dashboard/requirements.txt
+streamlit run dashboard/app.py
+```
 
-## 🎯 Resultados Clave
+## Tecnologías
 
-### Segmentación
-- **3 Segmentos identificados**: Familias, Jóvenes, Seniors
-- **PCA**: Visualización en 2 dimensiones
-- **Perfiles detallados**: Por edad, gasto, frecuencia
+Python, pandas, NumPy, scikit-learn (K-Means, PCA), Plotly y Streamlit.
 
-### Pricing Óptimo
-- **Precio recomendado**: $XX.XX/mes
-- **Incremento de ingresos**: +XX%
-- **Tasa de conversión esperada**: XX%
+## Licencia
 
-### Proyecciones Financieras
-- **ROI**: XX% en 12 meses
-- **VAN**: $XXX,XXX
-- **Payback period**: X meses
-  
-## 📈 Métricas del Proyecto
+[MIT](LICENSE) © 2025 Carlos Manuel Suárez Rivero (CMSR92)
 
-- **Líneas de código**: ~1,500+
-- **Notebooks**: 6 completos
-- **Visualizaciones**: 15+ gráficos interactivos
-- **Modelos ML**: Clasificación + Regresión
-- **Tiempo de desarrollo**: 2 semanas
+## Contacto
 
-## 🤝 Contribuciones
-
-## 📄 Licencia
-
-© 2025 CMSR92. Todos los derechos reservados.
-
-Este proyecto es de código abierto para fines educativos.
-
-## 📧 Contacto
-
-- **Desarrollador**: CMSR92
-- **LinkedIn**: [linkedin.com/in/cmsr92](https://linkedin.com/in/cmsr92)
-- **Portfolio**: [cmsr92.github.io](https://carlosmsr92.github.io/cmsr92/)
-
-## 🙏 Agradecimientos
-
-- Dataset inspirado en análisis de industria cinematográfica
-- Visualizaciones con Plotly
-- Framework Streamlit para deployment rápido
-
----
-
-Desarrollado con 💙 por CMSR92 | Noviembre 2025
+- **LinkedIn:** [linkedin.com/in/cmsr92](https://www.linkedin.com/in/cmsr92)
+- **Portfolio:** [carlosmsr92.github.io/cmsr92](https://carlosmsr92.github.io/cmsr92/)

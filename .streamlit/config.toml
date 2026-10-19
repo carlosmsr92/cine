@@ -5,3 +5,7 @@ messageFormat = "%(asctime)s %(message)s"
 # Opcional: usar siempre el tema oscuro o respetar el del navegador
 # [theme]
 # base = "dark"
+
+[client]
+# Sin botón Deploy ni menú de desarrollador para quien visita la app
+toolbarMode = "minimal"

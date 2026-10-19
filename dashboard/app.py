@@ -278,8 +278,7 @@ if LOGO_PNG.exists():
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.image(str(LOGO_PNG), width=300)
-else:
-    st.markdown('<div class="main-header">🎬 Estrategia de Suscripción de Cine</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-header">🎬 Estrategia de Suscripción de Cine</div>', unsafe_allow_html=True)
 
 st.markdown('<div class="sub-header">Análisis Data-Driven para Optimización de Precios y Proyecciones Financieras</div>', unsafe_allow_html=True)
 
@@ -296,36 +295,24 @@ st.markdown("---")
 st.markdown("## 📊 Resumen Ejecutivo")
 
 # KPIs principales en cards
+def kpi_card(col, label, value, note, background=None):
+    """Tarjeta KPI en un solo bloque HTML: si se abre el <div> en un st.markdown y se cierra en otro, Streamlit
+    los pinta como elementos separados y la tarjeta sale vacía."""
+    style = f' style="background: {background};"' if background else ""
+    col.markdown(f'''<div class="metric-card"{style}>
+<div class="metric-label">{label}</div><div class="metric-value">{value}</div><div class="metric-label">{note}</div>
+</div>''', unsafe_allow_html=True)
+
+
 if kpis:
     col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        st.markdown('<div class="metric-card">', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-label">Precio Óptimo de Suscripción</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-value">${kpis.get("price", 180)}</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-label">por año</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown('<div class="metric-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-label">Suscriptores para Punto de Equilibrio</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-value">{int(kpis.get("break_even_subs", 0))}</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-label">requeridos</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown('<div class="metric-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-label">Retorno de Inversión (ROI)</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-value">{kpis.get("roi_percent", 0):.0f}%</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-label">proyectado año 1</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    with col4:
-        st.markdown('<div class="metric-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-label">Tiempo de Recuperación de la Inversión</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-value">{kpis.get("payback_months", 0):.1f}</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-label">meses estimados</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+    kpi_card(col1, "Precio Óptimo de Suscripción", f"${kpis.get('price', 180)}", "por año")
+    kpi_card(col2, "Suscriptores para Punto de Equilibrio", int(kpis.get("break_even_subs", 0)), "requeridos",
+             "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)")
+    kpi_card(col3, "Retorno de Inversión (ROI)", f"{kpis.get('roi_percent', 0):.0f}%", "proyectado año 1",
+             "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)")
+    kpi_card(col4, "Tiempo de Recuperación de la Inversión", f"{kpis.get('payback_months', 0):.1f}", "meses estimados",
+             "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)")
 else:
     st.info("⚙️ Ejecuta el pipeline para generar KPIs financieros")
 
