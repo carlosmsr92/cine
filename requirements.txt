@@ -16,7 +16,7 @@ shap>=0.44.0
 lime>=0.2.0.1
 
 # App / Dashboard
-streamlit>=1.38.0
+streamlit>=1.50.0  # width="stretch"
 Pillow>=10.0.0
 
 # Utils

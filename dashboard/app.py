@@ -353,13 +353,14 @@ with col_right:
 
 # Tabs para análisis detallado
 st.markdown("---")
+# La pestaña de configuración ejecuta el pipeline: solo se muestra en local con CINE_ADMIN=1, no a los visitantes
+ADMIN = os.environ.get("CINE_ADMIN") == "1"
 tabs = st.tabs([
     "📈 Análisis de Negocio",
-    "👥 Segmentación de Clientes", 
+    "👥 Segmentación de Clientes",
     "💰 Optimización de Precios",
     "📊 Proyecciones Financieras",
-    "🔧 Configuración"
-])
+] + (["🔧 Configuración"] if ADMIN else []))
 
 # ============================================================================
 # TAB 1: ANÁLISIS DE NEGOCIO
@@ -421,7 +422,7 @@ with tabs[0]:
             fig_price.update_traces(
                 hovertemplate='<b>Precio:</b> $%{x:.2f}<br><b>Transacciones:</b> %{y}<extra></extra>'
             )
-            st.plotly_chart(fig_price, use_container_width=True)
+            st.plotly_chart(fig_price, width="stretch")
             
             st.markdown(f"""
             <div class="insight-box">
@@ -458,7 +459,7 @@ with tabs[0]:
             fig_group.update_traces(
                 hovertemplate='<b>Tamaño del Grupo:</b> %{x} personas<br><b>Transacciones:</b> %{y}<extra></extra>'
             )
-            st.plotly_chart(fig_group, use_container_width=True)
+            st.plotly_chart(fig_group, width="stretch")
             
             most_common = group_dist.idxmax()
             st.markdown(f"""
@@ -515,7 +516,7 @@ with tabs[0]:
             fig_genre_rev.update_traces(
                 hovertemplate='<b>Género:</b> %{x}<br><b>Ingresos:</b> $%{y:,.0f}<br><b>Retención:</b> %{marker.color:.1%}<extra></extra>'
             )
-            st.plotly_chart(fig_genre_rev, use_container_width=True)
+            st.plotly_chart(fig_genre_rev, width="stretch")
         
         with col_genre2:
             # Preparar datos para tooltips personalizados
@@ -555,7 +556,7 @@ with tabs[0]:
                 )
             )
             fig_genre_ret.update_yaxes(tickformat='.0%')
-            st.plotly_chart(fig_genre_ret, use_container_width=True)
+            st.plotly_chart(fig_genre_ret, width="stretch")
         
         st.markdown("""
         <div class="insight-box">
@@ -618,7 +619,7 @@ with tabs[0]:
                 x=0.5
             )
         )
-        st.plotly_chart(fig_seat, use_container_width=True)
+        st.plotly_chart(fig_seat, width="stretch")
         
         st.markdown("""
         <div class="insight-box">
@@ -709,7 +710,7 @@ with tabs[1]:
                         x=1.02
                     )
                 )
-                st.plotly_chart(fig_seg, use_container_width=True)
+                st.plotly_chart(fig_seg, width="stretch")
                 
                 st.markdown("""
                 <div class="insight-box">
@@ -904,7 +905,7 @@ with tabs[2]:
                 x=0.5
             )
         )
-        st.plotly_chart(fig_revenue, use_container_width=True)
+        st.plotly_chart(fig_revenue, width="stretch")
     
     with col_viz2:
         fig_profit = go.Figure()
@@ -936,7 +937,7 @@ with tabs[2]:
             margin=dict(l=70, r=40, t=60, b=60),
             showlegend=False
         )
-        st.plotly_chart(fig_profit, use_container_width=True)
+        st.plotly_chart(fig_profit, width="stretch")
     
     # Tabla detallada
     st.markdown("### 📋 Tabla Comparativa de Escenarios")
@@ -948,7 +949,7 @@ with tabs[2]:
     display_df['Margen %'] = display_df['Margen %'].apply(lambda x: f'{x:.1f}%')
     display_df['Break-Even'] = display_df['Break-Even'].apply(lambda x: f'{int(x)}' if x != float('inf') else '∞')
     
-    st.dataframe(display_df, use_container_width=True, height=300)
+    st.dataframe(display_df, width="stretch", height=300)
     
     # Análisis del escenario seleccionado
     st.markdown("---")
@@ -1043,7 +1044,7 @@ with tabs[2]:
             margin=dict(l=80, r=120, t=80, b=80)
         )
         
-        st.plotly_chart(fig_sens, use_container_width=True)
+        st.plotly_chart(fig_sens, width="stretch")
         
         st.markdown("""
         <div class="insight-box">
@@ -1189,7 +1190,7 @@ with tabs[3]:
             )
         )
         
-        st.plotly_chart(fig_revenue_proj, use_container_width=True)
+        st.plotly_chart(fig_revenue_proj, width="stretch")
     
     with col_proj2:
         fig_profit_proj = go.Figure()
@@ -1226,7 +1227,7 @@ with tabs[3]:
             margin=dict(l=70, r=40, t=60, b=60)
         )
         
-        st.plotly_chart(fig_profit_proj, use_container_width=True)
+        st.plotly_chart(fig_profit_proj, width="stretch")
     
     # Gráfico de crecimiento de suscriptores
     fig_subs = go.Figure()
@@ -1254,7 +1255,7 @@ with tabs[3]:
         showlegend=False
     )
     
-    st.plotly_chart(fig_subs, use_container_width=True)
+    st.plotly_chart(fig_subs, width="stretch")
     
     # Tabla resumen
     st.markdown("---")
@@ -1266,7 +1267,7 @@ with tabs[3]:
             display_proj[col] = display_proj[col].apply(lambda x: f'${x:,.0f}')
     display_proj['Suscriptores'] = display_proj['Suscriptores'].apply(lambda x: f'{x:,}' if x > 0 else '-')
     
-    st.dataframe(display_proj, use_container_width=True, height=250)
+    st.dataframe(display_proj, width="stretch", height=250)
     
     # KPIs finales
     st.markdown("---")
@@ -1310,78 +1311,78 @@ with tabs[3]:
 # ============================================================================
 # TAB 5: CONFIGURACIÓN Y UTILIDADES
 # ============================================================================
-with tabs[4]:
-    st.markdown("## 🔧 Configuración y Utilidades")
+if ADMIN:
+    with tabs[4]:
+        st.markdown("## 🔧 Configuración y Utilidades")
     
-    st.markdown("### 📊 Pipeline de Datos")
+        st.markdown("### 📊 Pipeline de Datos")
     
-    col_util1, col_util2 = st.columns(2)
+        col_util1, col_util2 = st.columns(2)
     
-    with col_util1:
-        if st.button('🔄 Actualizar Figuras y Métricas', use_container_width=True):
-            with st.spinner('Regenerando figuras...'):
-                try:
-                    py = str(VENV_PY) if VENV_PY.exists() else 'python'
-                    subprocess.check_call([py, str(EXPORT_SCRIPT)])
-                    st.success('✅ Figuras actualizadas correctamente')
-                    st.rerun()
-                except Exception as e:
-                    st.error(f'❌ Error: {e}')
+        with col_util1:
+            if st.button('🔄 Actualizar Figuras y Métricas', width="stretch"):
+                with st.spinner('Regenerando figuras...'):
+                    try:
+                        py = str(VENV_PY) if VENV_PY.exists() else 'python'
+                        subprocess.check_call([py, str(EXPORT_SCRIPT)])
+                        st.success('✅ Figuras actualizadas correctamente')
+                        st.rerun()
+                    except Exception as e:
+                        st.error(f'❌ Error: {e}')
     
-    with col_util2:
-        if st.button('▶️ Ejecutar Pipeline Completo (Notebooks)', use_container_width=True):
-            with st.spinner('Ejecutando pipeline... esto puede tardar varios minutos'):
-                try:
-                    py = str(VENV_PY) if VENV_PY.exists() else 'python'
-                    subprocess.check_call([py, str(ROOT / 'presentations' / 'run_notebooks.py')])
-                    st.success('✅ Pipeline completado')
-                    st.rerun()
-                except Exception as e:
-                    st.error(f'❌ Error: {e}')
+        with col_util2:
+            if st.button('▶️ Ejecutar Pipeline Completo (Notebooks)', width="stretch"):
+                with st.spinner('Ejecutando pipeline... esto puede tardar varios minutos'):
+                    try:
+                        py = str(VENV_PY) if VENV_PY.exists() else 'python'
+                        subprocess.check_call([py, str(ROOT / 'presentations' / 'run_notebooks.py')])
+                        st.success('✅ Pipeline completado')
+                        st.rerun()
+                    except Exception as e:
+                        st.error(f'❌ Error: {e}')
     
     
-    st.markdown("---")
-    st.markdown("### 📊 Estado de Datos")
+        st.markdown("---")
+        st.markdown("### 📊 Estado de Datos")
     
-    status_data = []
+        status_data = []
     
-    files_to_check = [
-        ('Raw Data', RAW_PATH),
-        ('Cleaned Data', CLEAN_PATH),
-        ('Features', FEAT_PATH),
-        ('Model Metrics', METRICS_JSON),
-        ('Financial KPIs', KPIS_JSON)
-    ]
+        files_to_check = [
+            ('Raw Data', RAW_PATH),
+            ('Cleaned Data', CLEAN_PATH),
+            ('Features', FEAT_PATH),
+            ('Model Metrics', METRICS_JSON),
+            ('Financial KPIs', KPIS_JSON)
+        ]
     
-    for name, path in files_to_check:
-        exists = path.exists()
-        size = path.stat().st_size if exists else 0
-        status_data.append({
-            'Archivo': name,
-            'Estado': '✅ Disponible' if exists else '❌ Faltante',
-            'Tamaño': f'{size / 1024:.1f} KB' if exists else '-'
-        })
+        for name, path in files_to_check:
+            exists = path.exists()
+            size = path.stat().st_size if exists else 0
+            status_data.append({
+                'Archivo': name,
+                'Estado': '✅ Disponible' if exists else '❌ Faltante',
+                'Tamaño': f'{size / 1024:.1f} KB' if exists else '-'
+            })
     
-    st.dataframe(pd.DataFrame(status_data), use_container_width=True, height=250)
+        st.dataframe(pd.DataFrame(status_data), width="stretch", height=250)
     
-    st.markdown("---")
-    st.markdown("### ℹ️ Información del Sistema")
+        st.markdown("---")
+        st.markdown("### ℹ️ Información del Sistema")
     
-    col_info1, col_info2, col_info3 = st.columns(3)
+        col_info1, col_info2, col_info3 = st.columns(3)
     
-    with col_info1:
-        st.metric("Registros en Dataset", f"{len(df):,}" if df is not None else "N/A")
-    with col_info2:
-        st.metric("Python Env", "Activo" if VENV_PY.exists() else "Sistema")
-    with col_info3:
-        st.metric("Versión Dashboard", "2.0 Professional")
+        with col_info1:
+            st.metric("Registros en Dataset", f"{len(df):,}" if df is not None else "N/A")
+        with col_info2:
+            st.metric("Python Env", "Activo" if VENV_PY.exists() else "Sistema")
+        with col_info3:
+            st.metric("Versión Dashboard", "2.0 Professional")
 
-# Footer
+    # Footer
 st.markdown("---")
 st.markdown("""
 <div style='text-align: center; color: #666; padding: 2rem 0;'>
-    <p><strong>Cinema Subscription Optimization Dashboard</strong></p>
-    <p>Desarrollado por CMSR92 | Noviembre 2025</p>
-    <p>🎬 Dashboard profesional con análisis data-driven end-to-end</p>
+    <p><strong>Estrategia de suscripción para un cine</strong></p>
+    <p>Carlos Manuel Suárez Rivero · CMSR92</p>
 </div>
 """, unsafe_allow_html=True)
