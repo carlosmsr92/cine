@@ -35,6 +35,7 @@ sys.path.append(str(ROOT))
 from src.pricing_optimization import simulate_pricing_scenarios
 from src import data_processing as dp
 from src import feature_engineering as fe
+from dashboard.formato import fn0, fn1, fn2, fni, grafico  # noqa: E402
 
 # Paths
 ASSETS_DIR = Path(__file__).parent / 'assets'
@@ -309,9 +310,9 @@ if kpis:
     kpi_card(col1, "Precio Óptimo de Suscripción", f"${kpis.get('price', 180)}", "por año")
     kpi_card(col2, "Suscriptores para Punto de Equilibrio", int(kpis.get("break_even_subs", 0)), "requeridos",
              "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)")
-    kpi_card(col3, "Retorno de Inversión (ROI)", f"{kpis.get('roi_percent', 0):.0f}%", "proyectado año 1",
+    kpi_card(col3, "Retorno de Inversión (ROI)", f"{fn0(kpis.get('roi_percent', 0))}%", "proyectado año 1",
              "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)")
-    kpi_card(col4, "Tiempo de Recuperación de la Inversión", f"{kpis.get('payback_months', 0):.1f}", "meses estimados",
+    kpi_card(col4, "Tiempo de Recuperación de la Inversión", f"{fn1(kpis.get('payback_months', 0))}", "meses estimados",
              "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)")
 else:
     st.info("⚙️ Ejecuta el pipeline para generar KPIs financieros")
@@ -374,16 +375,16 @@ with tabs[0]:
         col1, col2, col3, col4 = st.columns(4)
         
         with col1:
-            metric_card("Total Transacciones", f"{len(df):,}")
+            metric_card("Total Transacciones", f"{fni(len(df))}")
         with col2:
             avg_ticket = df['Ticket_Price'].mean()
-            metric_card("Precio Promedio Ticket", f"${avg_ticket:.2f}")
+            metric_card("Precio Promedio Ticket", f"${fn2(avg_ticket)}")
         with col3:
             avg_group = df['Number_of_Person'].mean()
-            metric_card("Personas por Compra", f"{avg_group:.1f}")
+            metric_card("Personas por Compra", f"{fn1(avg_group)}")
         with col4:
             retention = (df['Purchase_Again'].sum() / len(df) * 100)
-            metric_card("Tasa de Retención", f"{retention:.1f}%")
+            metric_card("Tasa de Retención", f"{fn1(retention)}%")
         
         st.markdown("---")
         
@@ -415,19 +416,19 @@ with tabs[0]:
                 x=avg_ticket, 
                 line_dash="dash", 
                 line_color="red",
-                annotation_text=f"Promedio: ${avg_ticket:.2f}",
+                annotation_text=f"Promedio: ${fn2(avg_ticket)}",
                 annotation_position="top"
             )
             # Mejorar tooltips
             fig_price.update_traces(
                 hovertemplate='<b>Precio:</b> $%{x:.2f}<br><b>Transacciones:</b> %{y}<extra></extra>'
             )
-            st.plotly_chart(fig_price, width="stretch")
+            grafico(fig_price, width="stretch")
             
             st.markdown(f"""
             <div class="insight-box">
-            <strong>💡 Insight:</strong> El precio promedio es <strong>${avg_ticket:.2f}</strong>. 
-            La suscripción a $180/año equivale a ~{180/avg_ticket:.0f} películas, 
+            <strong>💡 Insight:</strong> El precio promedio es <strong>${fn2(avg_ticket)}</strong>. 
+            La suscripción a $180/año equivale a ~{fn0(180/avg_ticket)} películas, 
             excelente valor para clientes frecuentes.
             </div>
             """, unsafe_allow_html=True)
@@ -459,12 +460,12 @@ with tabs[0]:
             fig_group.update_traces(
                 hovertemplate='<b>Tamaño del Grupo:</b> %{x} personas<br><b>Transacciones:</b> %{y}<extra></extra>'
             )
-            st.plotly_chart(fig_group, width="stretch")
+            grafico(fig_group, width="stretch")
             
             most_common = group_dist.idxmax()
             st.markdown(f"""
             <div class="insight-box">
-            <strong>💡 Insight:</strong> El tamaño más común es <strong>{most_common:.0f} personas</strong>. 
+            <strong>💡 Insight:</strong> El tamaño más común es <strong>{fn0(most_common)} personas</strong>. 
             Considerar planes familiares o grupales como complemento.
             </div>
             """, unsafe_allow_html=True)
@@ -516,7 +517,7 @@ with tabs[0]:
             fig_genre_rev.update_traces(
                 hovertemplate='<b>Género:</b> %{x}<br><b>Ingresos:</b> $%{y:,.0f}<br><b>Retención:</b> %{marker.color:.1%}<extra></extra>'
             )
-            st.plotly_chart(fig_genre_rev, width="stretch")
+            grafico(fig_genre_rev, width="stretch")
         
         with col_genre2:
             # Preparar datos para tooltips personalizados
@@ -556,7 +557,7 @@ with tabs[0]:
                 )
             )
             fig_genre_ret.update_yaxes(tickformat='.0%')
-            st.plotly_chart(fig_genre_ret, width="stretch")
+            grafico(fig_genre_ret, width="stretch")
         
         st.markdown("""
         <div class="insight-box">
@@ -619,7 +620,7 @@ with tabs[0]:
                 x=0.5
             )
         )
-        st.plotly_chart(fig_seat, width="stretch")
+        grafico(fig_seat, width="stretch")
         
         st.markdown("""
         <div class="insight-box">
@@ -710,7 +711,7 @@ with tabs[1]:
                         x=1.02
                     )
                 )
-                st.plotly_chart(fig_seg, width="stretch")
+                grafico(fig_seg, width="stretch")
                 
                 st.markdown("""
                 <div class="insight-box">
@@ -743,15 +744,15 @@ with tabs[1]:
                     for idx, (seg_id, row) in enumerate(profiles.iterrows()):
                         with cols[idx]:
                             st.markdown(f"#### Segmento {seg_id}")
-                            st.metric("Clientes", f"{int(row['Tamaño']):,}", 
+                            st.metric("Clientes", f"{fni(int(row['Tamaño']))}", 
                                      delta=f"{row['% del Total']:.1f}% del total")
                             
                             if 'Age' in row:
-                                st.metric("Edad Promedio", f"{row['Age']:.0f} años")
+                                st.metric("Edad Promedio", f"{fn0(row['Age'])} años")
                             if 'Ticket_Price' in row:
-                                st.metric("Gasto Promedio", f"${row['Ticket_Price']:.2f}")
+                                st.metric("Gasto Promedio", f"${fn2(row['Ticket_Price'])}")
                             if 'Number_of_Person' in row:
-                                st.metric("Tamaño Grupo", f"{row['Number_of_Person']:.1f}")
+                                st.metric("Tamaño Grupo", f"{fn1(row['Number_of_Person'])}")
                             
                             # Recomendación por segmento
                             if 'Age' in row and 'Number_of_Person' in row:
@@ -865,7 +866,7 @@ with tabs[2]:
             x=results_df['Precio'],
             y=results_df['Revenue'],
             marker_color='#667eea',
-            text=results_df['Revenue'].apply(lambda x: f'${x:,.0f}'),
+            text=results_df['Revenue'].apply(lambda x: f'${fn0(x)}'),
             textposition='outside',
             hovertemplate='<b>Precio:</b> $%{x}<br><b>Ingresos:</b> $%{y:,.0f}<extra></extra>'
         ))
@@ -905,7 +906,7 @@ with tabs[2]:
                 x=0.5
             )
         )
-        st.plotly_chart(fig_revenue, width="stretch")
+        grafico(fig_revenue, width="stretch")
     
     with col_viz2:
         fig_profit = go.Figure()
@@ -914,7 +915,7 @@ with tabs[2]:
             x=results_df['Precio'],
             y=results_df['Beneficio'],
             marker_color=colors,
-            text=results_df['Beneficio'].apply(lambda x: f'${x:,.0f}'),
+            text=results_df['Beneficio'].apply(lambda x: f'${fn0(x)}'),
             textposition='outside',
             hovertemplate='<b>Precio:</b> $%{x}<br><b>Beneficio:</b> $%{y:,.0f}<br><b>Estado:</b> %{customdata}<extra></extra>',
             customdata=['Rentable' if x > 0 else 'No Rentable' for x in results_df['Beneficio']]
@@ -937,7 +938,7 @@ with tabs[2]:
             margin=dict(l=70, r=40, t=60, b=60),
             showlegend=False
         )
-        st.plotly_chart(fig_profit, width="stretch")
+        grafico(fig_profit, width="stretch")
     
     # Tabla detallada
     st.markdown("### 📋 Tabla Comparativa de Escenarios")
@@ -945,9 +946,9 @@ with tabs[2]:
     # Formatear tabla
     display_df = results_df.copy()
     for col in ['Precio', 'Revenue', 'Costos Variables', 'Margen Contribución', 'Beneficio']:
-        display_df[col] = display_df[col].apply(lambda x: f'${x:,.0f}')
-    display_df['Margen %'] = display_df['Margen %'].apply(lambda x: f'{x:.1f}%')
-    display_df['Break-Even'] = display_df['Break-Even'].apply(lambda x: f'{int(x)}' if x != float('inf') else '∞')
+        display_df[col] = display_df[col].apply(lambda x: f'${fn0(x)}')
+    display_df['Margen %'] = display_df['Margen %'].apply(lambda x: f'{fn1(x)}%')
+    display_df['Break-Even'] = display_df['Break-Even'].apply(lambda x: fni(int(x)) if x != float('inf') else '∞')
     
     st.dataframe(display_df, width="stretch", height=300)
     
@@ -960,12 +961,12 @@ with tabs[2]:
     col_metric1, col_metric2, col_metric3, col_metric4 = st.columns(4)
     
     with col_metric1:
-        metric_card("Revenue Año 1", f"${selected_result['Revenue']:,.0f}")
+        metric_card("Revenue Año 1", f"${fn0(selected_result['Revenue'])}")
     with col_metric2:
-        metric_card("Margen Contribución", f"${selected_result['Margen Contribución']:,.0f}")
+        metric_card("Margen Contribución", f"${fn0(selected_result['Margen Contribución'])}")
     with col_metric3:
         profit_val = selected_result['Beneficio']
-        metric_card("Beneficio Neto", f"${profit_val:,.0f}", 
+        metric_card("Beneficio Neto", f"${fn0(profit_val)}", 
                    delta="Rentable" if profit_val > 0 else "No rentable",
                    delta_color="normal" if profit_val > 0 else "inverse")
     with col_metric4:
@@ -1044,7 +1045,7 @@ with tabs[2]:
             margin=dict(l=80, r=120, t=80, b=80)
         )
         
-        st.plotly_chart(fig_sens, width="stretch")
+        grafico(fig_sens, width="stretch")
         
         st.markdown("""
         <div class="insight-box">
@@ -1190,7 +1191,7 @@ with tabs[3]:
             )
         )
         
-        st.plotly_chart(fig_revenue_proj, width="stretch")
+        grafico(fig_revenue_proj, width="stretch")
     
     with col_proj2:
         fig_profit_proj = go.Figure()
@@ -1201,7 +1202,7 @@ with tabs[3]:
             x=proj_df['Año'],
             y=proj_df['Beneficio'],
             marker_color=colors,
-            text=proj_df['Beneficio'].apply(lambda x: f'${x:,.0f}'),
+            text=proj_df['Beneficio'].apply(lambda x: f'${fn0(x)}'),
             textposition='outside',
             name='Beneficio Neto',
             hovertemplate='<b>%{x}</b><br>Beneficio: $%{y:,.0f}<br><b>Estado:</b> %{customdata}<extra></extra>',
@@ -1227,7 +1228,7 @@ with tabs[3]:
             margin=dict(l=70, r=40, t=60, b=60)
         )
         
-        st.plotly_chart(fig_profit_proj, width="stretch")
+        grafico(fig_profit_proj, width="stretch")
     
     # Gráfico de crecimiento de suscriptores
     fig_subs = go.Figure()
@@ -1238,7 +1239,7 @@ with tabs[3]:
         mode='lines+markers',
         line=dict(color='#4facfe', width=4),
         marker=dict(size=14, color='#4facfe', line=dict(width=2, color='white')),
-        text=proj_df['Suscriptores'][1:].apply(lambda x: f'{int(x):,}'),
+        text=proj_df['Suscriptores'][1:].apply(lambda x: f'{fni(int(x))}'),
         textposition='top center',
         textfont=dict(size=12, color='#4facfe'),
         hovertemplate='<b>%{x}</b><br>Suscriptores: %{y:,}<extra></extra>'
@@ -1255,7 +1256,7 @@ with tabs[3]:
         showlegend=False
     )
     
-    st.plotly_chart(fig_subs, width="stretch")
+    grafico(fig_subs, width="stretch")
     
     # Tabla resumen
     st.markdown("---")
@@ -1264,8 +1265,8 @@ with tabs[3]:
     display_proj = proj_df.copy()
     for col in ['Precio', 'Revenue Suscripción', 'Revenue Traditional', 'Revenue Total', 'Costos Totales', 'Beneficio']:
         if col in display_proj.columns:
-            display_proj[col] = display_proj[col].apply(lambda x: f'${x:,.0f}')
-    display_proj['Suscriptores'] = display_proj['Suscriptores'].apply(lambda x: f'{x:,}' if x > 0 else '-')
+            display_proj[col] = display_proj[col].apply(lambda x: f'${fn0(x)}')
+    display_proj['Suscriptores'] = display_proj['Suscriptores'].apply(lambda x: f'{fni(x)}' if x > 0 else '-')
     
     st.dataframe(display_proj, width="stretch", height=250)
     
@@ -1282,16 +1283,16 @@ with tabs[3]:
     profit_growth = ((year3['Beneficio'] - baseline['Beneficio']) / abs(baseline['Beneficio']) * 100) if baseline['Beneficio'] != 0 else 0
     
     with col_kpi1:
-        metric_card("Revenue Año 3", f"${year3['Revenue Total']:,.0f}",
-                   delta=f"+{revenue_growth:.1f}% vs. actual")
+        metric_card("Revenue Año 3", f"${fn0(year3['Revenue Total'])}",
+                   delta=f"+{fn1(revenue_growth)}% vs. actual")
     with col_kpi2:
-        metric_card("Beneficio Año 3", f"${year3['Beneficio']:,.0f}",
-                   delta=f"+{profit_growth:.0f}% vs. actual")
+        metric_card("Beneficio Año 3", f"${fn0(year3['Beneficio'])}",
+                   delta=f"+{fn0(profit_growth)}% vs. actual")
     with col_kpi3:
-        metric_card("Suscriptores Año 3", f"{year3['Suscriptores']:,}")
+        metric_card("Suscriptores Año 3", f"{fni(year3['Suscriptores'])}")
     with col_kpi4:
         ltv = year3['Precio'] * 3 * (1 - churn_rate / 100)  # LTV simplificado
-        metric_card("LTV Estimado", f"${ltv:,.0f}")
+        metric_card("LTV Estimado", f"${fn0(ltv)}")
     
     # Conclusiones
     st.markdown("---")
@@ -1361,7 +1362,7 @@ if ADMIN:
             status_data.append({
                 'Archivo': name,
                 'Estado': '✅ Disponible' if exists else '❌ Faltante',
-                'Tamaño': f'{size / 1024:.1f} KB' if exists else '-'
+                'Tamaño': f'{fn1(size / 1024)} KB' if exists else '-'
             })
     
         st.dataframe(pd.DataFrame(status_data), width="stretch", height=250)
@@ -1372,7 +1373,7 @@ if ADMIN:
         col_info1, col_info2, col_info3 = st.columns(3)
     
         with col_info1:
-            st.metric("Registros en Dataset", f"{len(df):,}" if df is not None else "N/A")
+            st.metric("Registros en Dataset", f"{fni(len(df))}" if df is not None else "N/A")
         with col_info2:
             st.metric("Python Env", "Activo" if VENV_PY.exists() else "Sistema")
         with col_info3:
