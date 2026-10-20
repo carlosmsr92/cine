@@ -1,0 +1,14 @@
+name: docker
+on: [push, pull_request]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f dashboard/Dockerfile -t cine-dashboard .
+      - name: El contenedor arranca y el dashboard responde
+        run: |
+          docker run -d --name cine -p 8501:8501 cine-dashboard
+          for i in $(seq 1 30); do curl -fs http://localhost:8501/_stcore/health && exit 0; sleep 2; done
+          docker logs cine; exit 1

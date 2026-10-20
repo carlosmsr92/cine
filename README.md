@@ -43,7 +43,9 @@ cine/
 ├── dashboard/
 │   ├── app.py                 # Aplicación Streamlit
 │   ├── requirements.txt       # Dependencias del dashboard
-│   └── assets/styles.css      # Estilos
+│   ├── marca.py               # Cabecera, pie e icono comunes CMSR92
+│   ├── assets/                # Logo y símbolo de marca
+│   └── Dockerfile             # Imagen del dashboard (se construye desde la raíz)
 ├── data/
 │   ├── raw/                   # Datos originales
 │   └── processed/             # Datos limpios, segmentos y features
@@ -60,6 +62,18 @@ cine/
 pip install -r dashboard/requirements.txt
 streamlit run dashboard/app.py
 ```
+
+## Ejecutar con Docker
+
+La imagen se construye desde la raíz del repositorio, porque el dashboard usa `src/`, `data/` y `reports/`:
+
+```bash
+docker build -f dashboard/Dockerfile -t cine-dashboard .
+docker run -p 8501:8501 cine-dashboard
+```
+
+En cada push, GitHub Actions construye la imagen y comprueba que el dashboard responde
+([`.github/workflows/docker.yml`](.github/workflows/docker.yml)).
 
 ## Tecnologías
 

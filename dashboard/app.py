@@ -233,14 +233,14 @@ with col_left:
     st.markdown("### 🎯 Diagnóstico de la Situación Actual")
     st.markdown("""
     <div class="warning-box">
-    <h4>📉 Retos Estratégicos del Cine</h4>
+    <h4>📉 Qué le pasa al cine</h4>
     <ul>
-        <li><strong>Descenso del 15% en la asistencia anual</strong> por cambios en hábitos de consumo</li>
-        <li>Competencia intensificada por plataformas de streaming líderes</li>
-        <li>Volatilidad en ingresos y dificultad para proyectar resultados</li>
-        <li>Falta de mecanismos efectivos de fidelización y retención</li>
+        <li><strong>Va menos gente</strong>: los hábitos de ocio han cambiado</li>
+        <li>Las plataformas de streaming compiten por el mismo tiempo libre</li>
+        <li>Los ingresos suben y bajan mucho, y es difícil planificar</li>
+        <li>No hay nada que anime a los clientes a volver</li>
     </ul>
-    <p>La industria enfrenta la necesidad de reinventar su propuesta de valor para sostener el crecimiento y la rentabilidad.</p>
+    <p>Hace falta una razón para que los clientes vuelvan con regularidad.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -248,14 +248,14 @@ with col_right:
     st.markdown("### 💡 Estrategia Recomendada")
     st.markdown("""
     <div class="success-box">
-    <h4>🎬 Programa de Suscripción Anual</h4>
+    <h4>🎬 Una suscripción anual</h4>
     <ul>
-        <li><strong>$180/año</strong> ($15/mes): posicionamiento competitivo y accesible</li>
-        <li>Acceso ilimitado a películas y beneficios exclusivos para suscriptores</li>
-        <li>Transformación de ingresos variables en flujos recurrentes y predecibles</li>
-        <li>Fidelización de clientes de alto valor mediante experiencias diferenciadas</li>
+        <li><strong>$180 al año</strong> ($15 al mes), un precio fácil de entender</li>
+        <li>Películas ilimitadas y ventajas solo para suscriptores</li>
+        <li>Ingresos fijos cada mes en lugar de depender de la taquilla</li>
+        <li>Un motivo para que los mejores clientes sigan viniendo</li>
     </ul>
-    <p>La suscripción permite construir una base sólida de clientes, optimizar la rentabilidad y fortalecer la resiliencia ante cambios de mercado.</p>
+    <p>Con una base de suscriptores, los ingresos son más estables y el cine depende menos de cada estreno.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -333,9 +333,9 @@ with tabs[0]:
 
             st.markdown(f"""
             <div class="insight-box">
-            <strong>💡 Insight:</strong> El precio promedio es <strong>${fn2(avg_ticket)}</strong>.
-            La suscripción a $180/año equivale a ~{fn0(180/avg_ticket)} películas,
-            excelente valor para clientes frecuentes.
+            <strong>💡 Dato:</strong> la entrada media cuesta <strong>${fn2(avg_ticket)}</strong>, así que la
+            suscripción de $180 al año se amortiza con unas {fn0(180/avg_ticket)} películas. Sale a cuenta a
+            quien va al cine a menudo.
             </div>
             """, unsafe_allow_html=True)
 
@@ -369,8 +369,8 @@ with tabs[0]:
             most_common = group_dist.idxmax()
             st.markdown(f"""
             <div class="insight-box">
-            <strong>💡 Insight:</strong> El tamaño más común es <strong>{fn0(most_common)} personas</strong>.
-            Considerar planes familiares o grupales como complemento.
+            <strong>💡 Dato:</strong> lo más habitual es ir en grupos de <strong>{fn0(most_common)} personas</strong>.
+            Un plan familiar o de grupo podría encajar como complemento.
             </div>
             """, unsafe_allow_html=True)
 
@@ -463,9 +463,9 @@ with tabs[0]:
 
         st.markdown("""
         <div class="insight-box">
-        <strong>💡 Recomendación:</strong> Focalizar marketing de suscripción en géneros con
-        mayor tasa de retención y alto volumen. Usar contenido exclusivo de estos géneros
-        como incentivo de inscripción.
+        <strong>💡 Recomendación:</strong> centrar la promoción de la suscripción en los géneros
+        que más público repite y más entradas venden, y usar estrenos o pases exclusivos de esos
+        géneros como gancho.
         </div>
         """, unsafe_allow_html=True)
 
@@ -526,8 +526,8 @@ with tabs[0]:
 
         st.markdown("""
         <div class="insight-box">
-        <strong>💡 Estrategia:</strong> Ofrecer beneficios diferenciados por tipo de asiento
-        (ej: upgrade gratuito a Premium una vez al mes para suscriptores).
+        <strong>💡 Idea:</strong> dar ventajas según el tipo de asiento; por ejemplo, que los
+        suscriptores puedan pasar gratis a un asiento Premium una vez al mes.
         </div>
         """, unsafe_allow_html=True)
 
@@ -539,7 +539,7 @@ with tabs[0]:
 # ============================================================================
 with tabs[1]:
     st.markdown("## 👥 Segmentación de Clientes")
-    st.markdown("Identificación de perfiles de clientes mediante clustering para personalizar la estrategia.")
+    st.markdown("Agrupamos a los clientes por perfiles parecidos para adaptar la oferta a cada uno.")
 
     try:
         # Cargar features
@@ -616,11 +616,10 @@ with tabs[1]:
 
                 st.markdown("""
                 <div class="insight-box">
-                <strong>🔍 ¿Qué vemos en este gráfico?</strong><br>
-                Este gráfico utiliza PCA (Análisis de Componentes Principales) para visualizar los segmentos de clientes
-                en 2 dimensiones. Cada punto representa un cliente, y los colores indican a qué segmento pertenece
-                según el algoritmo K-Means. Los grupos bien diferenciados (clústeres separados) indican patrones de
-                comportamiento distintos entre segmentos, lo que permite estrategias de marketing personalizadas.
+                <strong>🔍 Cómo leer este gráfico</strong><br>
+                Cada punto es un cliente y el color indica su segmento (calculado con K-Means). Para poder
+                dibujarlos en un plano, sus datos se resumen en dos ejes con PCA. Si los grupos de colores quedan
+                separados, los segmentos se comportan de forma distinta y tiene sentido tratarlos por separado.
                 </div>
                 """, unsafe_allow_html=True)
 
@@ -663,14 +662,13 @@ with tabs[1]:
                 st.markdown("---")
                 st.markdown("""
                 <div class="success-box">
-                <h4>💡 Insights Clave de Segmentación</h4>
+                <h4>💡 Qué hacer con estos segmentos</h4>
                 <ul>
-                    <li><strong>Segmento objetivo principal:</strong> Identificar el segmento con mayor frecuencia
-                    y gasto promedio para focalizar el lanzamiento</li>
-                    <li><strong>Personalización:</strong> Adaptar beneficios y comunicación según perfil demográfico</li>
-                    <li><strong>Estrategia de precios:</strong> Considerar tiers diferenciados
-                    (individual, pareja, familiar)</li>
-                    <li><strong>Retención:</strong> Programas de fidelización específicos por segmento</li>
+                    <li><strong>Empezar por el mejor:</strong> lanzar la suscripción primero al segmento que más
+                    gasta y más repite</li>
+                    <li><strong>Hablar a cada uno a su manera:</strong> ventajas y mensajes según el perfil</li>
+                    <li><strong>Varios planes:</strong> individual, pareja y familiar</li>
+                    <li><strong>Que se queden:</strong> ventajas pensadas para cada segmento</li>
                 </ul>
                 </div>
                 """, unsafe_allow_html=True)
@@ -687,7 +685,7 @@ with tabs[1]:
 # ============================================================================
 with tabs[2]:
     st.markdown("## 💰 Simulador de Precios y Rentabilidad")
-    st.markdown("Análisis de escenarios para encontrar el punto óptimo de precio vs. volumen.")
+    st.markdown("Prueba distintos precios y mira cuántos suscriptores harían falta para que salga rentable.")
 
     # Controles de simulación
     st.markdown("### ⚙️ Parámetros del Escenario")
@@ -866,15 +864,15 @@ with tabs[2]:
         if selected_result['Margen %'] > 40:
             recommendation = "success-box"
             icon = "✅"
-            message = "Excelente margen de rentabilidad. Este precio ofrece un balance óptimo."
+            message = "Buen margen: con este precio el programa es claramente rentable."
         else:
             recommendation = "insight-box"
             icon = "📊"
-            message = "Escenario rentable, pero considera optimizar para mejorar márgenes."
+            message = "Es rentable, pero con poco margen: conviene revisar el precio o los costes."
     else:
         recommendation = "warning-box"
         icon = "⚠️"
-        message = "Este escenario no es rentable. Aumenta el precio o reduce costos."
+        message = "Así no es rentable: haría falta subir el precio o bajar los costes."
 
     st.markdown(f"""
     <div class="{recommendation}">
@@ -939,10 +937,10 @@ with tabs[2]:
         <div class="insight-box">
         <strong>💡 Cómo interpretar este análisis:</strong>
         <ul>
-            <li><strong>Zonas verdes:</strong> Máxima rentabilidad — estos puntos representan combinaciones óptimas de precio y volumen</li>
-            <li><strong>Zonas amarillas:</strong> Punto de equilibrio — ingresos cubren costos pero con margen bajo</li>
-            <li><strong>Zonas rojas:</strong> No rentable — los costos superan los ingresos en estos escenarios</li>
-            <li><strong>Objetivo:</strong> Encontrar el balance entre un precio competitivo (que maximice adopción) y un volumen alcanzable (realista según tu mercado)</li>
+            <li><strong>Azul:</strong> hay beneficio, y cuanto más oscuro, más</li>
+            <li><strong>Blanco:</strong> punto de equilibrio, los ingresos apenas cubren los costes</li>
+            <li><strong>Rojo:</strong> pérdidas, los costes superan a los ingresos</li>
+            <li><strong>Lo que se busca:</strong> un precio que atraiga a suficiente gente y un número de suscriptores que sea realista conseguir</li>
         </ul>
         </div>
         """, unsafe_allow_html=True)
@@ -952,7 +950,7 @@ with tabs[2]:
 # ============================================================================
 with tabs[3]:
     st.markdown("## 📊 Proyecciones Financieras a 3 Años")
-    st.markdown("Modelos de crecimiento y proyección de impacto financiero del programa de suscripción.")
+    st.markdown("Cómo podrían evolucionar los suscriptores, los ingresos y el beneficio en los próximos tres años.")
 
     # Parámetros de proyección
     st.markdown("### ⚙️ Supuestos de Crecimiento")
@@ -1183,14 +1181,13 @@ with tabs[3]:
     st.markdown("---")
     st.markdown("""
     <div class="success-box">
-    <h4>💡 Conclusiones Estratégicas</h4>
+    <h4>💡 Conclusiones</h4>
     <ul>
-        <li><strong>Viabilidad:</strong> El modelo de suscripción genera crecimiento sostenible en revenue y beneficio</li>
-        <li><strong>Diversificación:</strong> Reduce dependencia de ingresos por ticket tradicional</li>
-        <li><strong>Valor vitalicio:</strong> LTV de suscriptores supera ampliamente el CAC esperado</li>
-        <li><strong>Escalabilidad:</strong> Margen mejora con escala debido a costos fijos diluidos</li>
+        <li><strong>Sale a cuenta:</strong> con estos supuestos, los ingresos y el beneficio crecen año a año</li>
+        <li><strong>Menos dependencia de la taquilla:</strong> una parte de los ingresos pasa a ser fija</li>
+        <li><strong>Mejor con más suscriptores:</strong> los costes fijos se reparten y el margen mejora</li>
     </ul>
-    <p><strong>Recomendación:</strong> Proceder con lanzamiento piloto para validar supuestos de adopción y churn.</p>
+    <p><strong>Siguiente paso:</strong> una prueba piloto para comprobar cuánta gente se apunta y cuánta se da de baja de verdad.</p>
     </div>
     """, unsafe_allow_html=True)
 
