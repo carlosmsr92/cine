@@ -2,10 +2,18 @@
 level = "error"
 messageFormat = "%(asctime)s %(message)s"
 
-# Opcional: usar siempre el tema oscuro o respetar el del navegador
-# [theme]
-# base = "dark"
-
 [client]
 # Sin botón Deploy ni menú de desarrollador para quien visita la app
 toolbarMode = "minimal"
+
+# Marco común CMSR92 de los dashboards del portfolio: turquesa de marca como color principal (#087F93 en claro,
+# 4,7:1 sobre blanco; #0CA5BE en oscuro, 6,4:1) y la letra Inter de la landing.
+# Las secciones [theme.light] y [theme.dark] (Streamlit >= 1.51) mantienen los dos temas; cada viewer ve el de su sistema.
+[theme]
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap, sans-serif"
+
+[theme.light]
+primaryColor = "#087F93"
+
+[theme.dark]
+primaryColor = "#0CA5BE"

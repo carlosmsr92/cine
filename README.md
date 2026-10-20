@@ -69,7 +69,6 @@ Python, pandas, NumPy, scikit-learn (K-Means, PCA), Plotly y Streamlit.
 
 [MIT](LICENSE) © 2025 Carlos Manuel Suárez Rivero (CMSR92)
 
-## Contacto
+## Autor
 
-- **LinkedIn:** [linkedin.com/in/cmsr92](https://www.linkedin.com/in/cmsr92)
-- **Portfolio:** [carlosmsr92.github.io/cmsr92](https://carlosmsr92.github.io/cmsr92/)
+**Carlos Manuel Suárez Rivero (CMSR92)** · [LinkedIn](https://www.linkedin.com/in/cmsr92) · [Portfolio](https://carlosmsr92.github.io/cmsr92/)
